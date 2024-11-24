@@ -5,7 +5,7 @@
 #  id         :bigint           not null, primary key
 #  name       :string
 #  size       :integer
-#  status     :string           default(NULL)
+#  status     :string           default("in_queue")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -14,6 +14,10 @@ class Party < ApplicationRecord
   SERVICE_TIME_MULTIPLIER = 3
   MAX_CAPACITY = 10
   ALLOW_JUMP_QUEUE = false
+
+  validates :name, presence: true
+  validates :size, presence: true,
+                   numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: MAX_CAPACITY }
 
   scope :in_queue_or_pending_check_in, -> { where(status: %w[in_queue pending_check_in]) }
 
