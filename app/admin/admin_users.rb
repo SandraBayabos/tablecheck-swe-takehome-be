@@ -1,7 +1,7 @@
 ActiveAdmin.register AdminUser do
   # not showing in the menu
   # accessible via /admin/admin_users
-  menu priority: 1
+  menu priority: 5
   permit_params :username, :email, :password, :password_confirmation
 
   index do

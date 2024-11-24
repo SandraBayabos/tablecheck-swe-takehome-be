@@ -1,1 +1,1 @@
-AdminUser.create(username: 'admin', password: 'admin123') if Rails.env.development?
+AdminUser.create(username: 'admin', password: 'admin123') # if Rails.env.development?

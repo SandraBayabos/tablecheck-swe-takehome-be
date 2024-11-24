@@ -156,6 +156,8 @@ GEM
     drb (2.2.1)
     e2mmap (0.1.0)
     erubi (1.13.0)
+    et-orbi (1.2.11)
+      tzinfo
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
     ffi (1.17.0-aarch64-linux-gnu)
@@ -167,6 +169,9 @@ GEM
     formtastic (5.0.0)
       actionpack (>= 6.0.0)
     formtastic_i18n (0.7.0)
+    fugit (1.11.1)
+      et-orbi (~> 1, >= 1.2.11)
+      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     groupdate (6.5.0)
@@ -277,6 +282,7 @@ GEM
     public_suffix (6.0.1)
     puma (6.4.3)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.8)
     rack-cors (2.0.2)
@@ -336,6 +342,8 @@ GEM
     rbs (2.8.4)
     rdoc (6.8.0)
       psych (>= 4.0.0)
+    redis-client (0.22.2)
+      connection_pool
     regexp_parser (2.9.2)
     reline (0.5.11)
       io-console (~> 0.5)
@@ -363,12 +371,23 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (2.3.2)
+    rufus-scheduler (3.9.2)
+      fugit (~> 1.1, >= 1.11.1)
     selenium-webdriver (4.25.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (7.3.6)
+      connection_pool (>= 2.3.0)
+      logger
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
+    sidekiq-scheduler (5.0.6)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 6, < 8)
+      tilt (>= 1.4.0, < 3)
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -484,6 +503,7 @@ DEPENDENCIES
   rails_heroicon (~> 2.3)
   rails_live_reload
   selenium-webdriver
+  sidekiq-scheduler
   simple_form
   slim-rails
   solargraph

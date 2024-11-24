@@ -1,0 +1,5 @@
+:scheduler:
+  :schedule:
+    process_table_service_job:
+      every: ["5s"]
+      class: "ProcessTableServiceJob"

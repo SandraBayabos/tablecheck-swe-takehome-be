@@ -54,3 +54,5 @@ gem 'jsbundling-rails', '~> 1.3'
 gem 'tailwindcss-rails', '~> 3.0'
 gem 'rails_heroicon', '~> 2.3'
 gem 'ostruct', '~> 0.6.0'
+gem 'sidekiq-scheduler'
+
