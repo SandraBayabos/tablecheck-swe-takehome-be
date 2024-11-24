@@ -1,0 +1,15 @@
+{
+  "name": "app",
+  "private": true,
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  },
+  "scripts": {
+    "build": "esbuild app/assets/javascript/admin_entry.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets --loader:.js=jsx --loader:.ts=ts --loader:.ts=tsx"
+  },
+  "dependencies": {
+    "@activeadmin/activeadmin": "4.0.0-beta13",
+    "chart.js": "^4.4.5",
+    "chartkick": "^5.0.1"
+  }
+}
