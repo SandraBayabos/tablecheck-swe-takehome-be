@@ -51,7 +51,12 @@ The app will run on `PORT 3000` ([http://localhost:3000](http://localhost:3000))
 
 ## View the Active Admin Dashboard
 
-Navigate to [http://localhost:3000/admin](http://localhost:3000/admin) and sign in with the following credentials to view which parties have inserted themselves into the queue and to view their current queue status and position
+Navigate to [http://localhost:3000/admin](http://localhost:3000/admin) and sign in with the following credentials to view which parties have inserted themselves into the queue and to view their current queue status and position:
+
+```bash
+admin
+admin123
+```
 
 On the dashboard, you may also:
 
