@@ -44,6 +44,13 @@ ActiveAdmin.register Party do
                                                                            data: { confirm: 'This will seed 3 parties to full capacity. Proceed?' }
   end
 
+  action_item :toggle_allow_jump_queue, only: :index do
+    link_to Party::ALLOW_JUMP_QUEUE ? 'Disable Jump Queue' : 'Allow Jump Queue',
+            toggle_allow_jump_queue_admin_parties_path, method: :post,
+                                                        class: 'action-item-button',
+                                                        data: { confirm: 'This will toggle the jump queue feature. Proceed?' }
+  end
+
   collection_action :seed_random_parties, method: :post do
     party = Party.new(name: Faker::Name.name, size: 10)
     if party.save
@@ -51,6 +58,11 @@ ActiveAdmin.register Party do
     else
       redirect_to admin_parties_path, alert: party.errors.full_messages.join(', ')
     end
+  end
+
+  collection_action :toggle_allow_jump_queue, method: :post do
+    Party::ALLOW_JUMP_QUEUE = !Party::ALLOW_JUMP_QUEUE
+    redirect_to admin_parties_path, notice: "Jump Queue is now #{Party::ALLOW_JUMP_QUEUE ? 'enabled' : 'disabled'}!"
   end
 
   member_action :check_in, method: :put do

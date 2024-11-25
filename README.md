@@ -17,6 +17,7 @@ Make sure you have the following installed on your machine
 
 - Ruby (v3)
 - Node.js (v18 and up)
+- Yarn (v1)
 - Docker (v25 and up)
 - Docker Desktop (v4 and up)
 
