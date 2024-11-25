@@ -18,12 +18,11 @@ class ProcessPartyService
 
   def process_queue
     queue = Party.in_queue.order(:created_at).to_a
-    # [ Liren, Abt, Wbo, Jim, Two, One, One]
     capacity = Party.remaining_capacity # 10
 
     queue.each do |party|
       if capacity < party.size
-        next if Party::ALLOW_JUMP_QUEUE
+        next if Party.allow_jump_queue?
 
         break
       end

@@ -45,24 +45,37 @@ ActiveAdmin.register Party do
   end
 
   action_item :toggle_allow_jump_queue, only: :index do
-    link_to Party::ALLOW_JUMP_QUEUE ? 'Disable Jump Queue' : 'Allow Jump Queue',
+    link_to Party.allow_jump_queue? ? 'Disable Jump Queue' : 'Allow Jump Queue',
             toggle_allow_jump_queue_admin_parties_path, method: :post,
                                                         class: 'action-item-button',
                                                         data: { confirm: 'This will toggle the jump queue feature. Proceed?' }
   end
 
   collection_action :seed_random_parties, method: :post do
-    party = Party.new(name: Faker::Name.name, size: 10)
-    if party.save
-      redirect_to admin_parties_path, notice: "#{party.name} is now in queue!"
-    else
-      redirect_to admin_parties_path, alert: party.errors.full_messages.join(', ')
+    total_capacity = 10
+    party_count = 3
+    remaining_capacity = total_capacity
+    parties = []
+
+    party_count.times do |i|
+      size = i == party_count - 1 ? remaining_capacity : rand(1..remaining_capacity - (party_count - i - 1))
+      party = Party.new(name: Faker::Name.name, size: size)
+      if party.save
+        parties << party
+        remaining_capacity -= size
+      else
+        redirect_to admin_parties_path, alert: "Failed to create parties: #{party.errors.full_messages.join(', ')}"
+        return
+      end
     end
+
+    redirect_to admin_parties_path,
+                notice: "#{parties.map(&:name).join(', ')} are now in queue with total size #{total_capacity - remaining_capacity}!"
   end
 
   collection_action :toggle_allow_jump_queue, method: :post do
-    Party::ALLOW_JUMP_QUEUE = !Party::ALLOW_JUMP_QUEUE
-    redirect_to admin_parties_path, notice: "Jump Queue is now #{Party::ALLOW_JUMP_QUEUE ? 'enabled' : 'disabled'}!"
+    new_value = Setting.toggle('allow_jump_queue')
+    redirect_to admin_parties_path, notice: "Jump Queue is now #{new_value ? 'enabled' : 'disabled'}!"
   end
 
   member_action :check_in, method: :put do

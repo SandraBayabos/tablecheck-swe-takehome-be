@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       collection do
         put :check_in
         get :current
+        delete :delete
       end
     end
   end

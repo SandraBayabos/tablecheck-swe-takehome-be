@@ -11,13 +11,7 @@
 #
 
 class Party < ApplicationRecord
-  SERVICE_TIME_MULTIPLIER = 3
-  MAX_CAPACITY = 10
-  ALLOW_JUMP_QUEUE = false
-
   validates :name, presence: true
-  validates :size, presence: true,
-                   numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: MAX_CAPACITY }
 
   scope :in_queue_or_pending_check_in, -> { where(status: %w[in_queue pending_check_in]) }
 
@@ -26,9 +20,11 @@ class Party < ApplicationRecord
                  seated: 'Seated',
                  finished: 'Finished' }
 
+  validate :size_within_max_capacity
+
   # Check if a party's service time is complete
   def service_time_complete?(current_time)
-    seated? && (updated_at + size * SERVICE_TIME_MULTIPLIER.seconds <= current_time)
+    seated? && (updated_at + size * Setting.get('service_time_per_customer').to_i.seconds <= current_time)
   end
 
   # Mark a party as finished
@@ -38,11 +34,19 @@ class Party < ApplicationRecord
 
   # Calculate remaining capacity
   def self.remaining_capacity
-    MAX_CAPACITY - seated.sum(:size) - pending_check_in.sum(:size)
+    Setting.get('max_capacity').to_i - seated.sum(:size) - pending_check_in.sum(:size)
   end
 
   def queue_position
     Party.in_queue.where('created_at < ?', created_at).count + 1
+  end
+
+  def self.allow_jump_queue?
+    Setting.get('allow_jump_queue') == 'true'
+  end
+
+  def self.toggle_allow_jump_queue
+    Setting.toggle('allow_jump_queue')
   end
 
   # Update queue positions of all parties in queue
@@ -52,4 +56,13 @@ class Party < ApplicationRecord
   #       party.update!(queue_position: index + 1)
   #     end
   #   end
+
+  private
+
+  def size_within_max_capacity
+    max_capacity = Setting.get('max_capacity').to_i
+    return unless size.nil? || size <= 0 || size > max_capacity
+
+    errors.add(:size, "must be an integer greater than 0 and less than or equal to #{max_capacity}")
+  end
 end

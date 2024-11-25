@@ -1,5 +1,5 @@
 class Api::PartiesController < ApiController
-  before_action :authenticate_party, only: %i[check_in current]
+  before_action :authenticate_party, only: %i[check_in current delete]
 
   def current
     render json: PartyBlueprinter.render_as_json(@current_party), status: :ok
@@ -10,7 +10,7 @@ class Api::PartiesController < ApiController
     if @party.save
       session[:party_id] = @party.id
       session[:expires_at] = 1.day.from_now
-      render json: @party, status: :created
+      render json: PartyBlueprinter.render_as_json(@party), status: :created
     else
       render json: {
         error: @party.errors.full_messages.join(', ')
@@ -30,6 +30,14 @@ class Api::PartiesController < ApiController
     @current_party.update(status: 'seated')
 
     render json: @current_party, status: :ok
+  end
+
+  def delete
+    @current_party.destroy
+    session[:party_id] = nil
+    session[:expires_at] = nil
+
+    head :ok
   end
 
   private
