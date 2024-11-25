@@ -9,6 +9,13 @@ class ApiController < ActionController::API
   # get current_party from session[:party_id]
   def authenticate_party
     @current_party = Party.find_by(id: session[:party_id])
-    render json: { error: 'Unauthorized' }, status: :unauthorized unless @current_party
+    cookie_expiry = session[:expires_at]
+
+    if @current_party.nil?
+      render json: { error: 'Unauthorized' }, status: :unauthorized
+    elsif cookie_expiry.nil? || cookie_expiry < Time.zone.now
+      session[:party_id] = nil
+      render json: { error: 'Session expired' }, status: :unauthorized
+    end
   end
 end

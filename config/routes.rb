@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :parties, only: %i[create] do
       collection do
         put :check_in
+        get :current
       end
     end
   end

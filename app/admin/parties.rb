@@ -9,7 +9,7 @@ ActiveAdmin.register Party do
   end
 
   index do
-    div class: "spacer-y-2 p-2" do
+    div class: 'spacer-y-2 p-2' do
       div(class: 'text-sm') { "In-Queue: #{Party.in_queue.sum(:size)}" }
       div(class: 'text-sm') { "Pending Check-In: #{Party.pending_check_in.sum(:size)}" }
       div(class: 'text-sm') { "Seated: #{Party.seated.sum(:size)}" }
@@ -36,6 +36,21 @@ ActiveAdmin.register Party do
       f.input :status, as: :select, collection: Party.statuses.map { |k, v| [v, k] }
     end
     f.actions
+  end
+
+  action_item :seed_random_parties, only: :index do
+    link_to 'Seed Random Parties', seed_random_parties_admin_parties_path, method: :post,
+                                                                           class: 'action-item-button',
+                                                                           data: { confirm: 'This will seed 3 parties to full capacity. Proceed?' }
+  end
+
+  collection_action :seed_random_parties, method: :post do
+    party = Party.new(name: Faker::Name.name, size: 10)
+    if party.save
+      redirect_to admin_parties_path, notice: "#{party.name} is now in queue!"
+    else
+      redirect_to admin_parties_path, alert: party.errors.full_messages.join(', ')
+    end
   end
 
   member_action :check_in, method: :put do
