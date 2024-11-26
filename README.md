@@ -80,4 +80,4 @@ The maximum capacity of the restaurant can also be adjusted on the admin dashboa
 
 The service time per party member is also configurable purely for development test purposes.
 
-<img src="image-2.png" alt="home" width="200"/>
+<img src="image-2.png" alt="home" width="500"/>
