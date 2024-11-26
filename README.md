@@ -59,9 +59,10 @@ For example:
 
 The maximum capacity of the restaurant is 10.
 Current queue:
-party_id 1: size 5
-party_id 2: size 8
-party_id 3: size 2
+
+- party_id 1: size 5
+- party_id 2: size 8
+- party_id 3: size 2
 
 If the Allow Jump Queue is toggled to `false`, if party_id 1 is seated, in spite of there being capacity for party_id 3, party_id 3 will be blocked checking in until party_id 2 has finished their meal.
 
