@@ -72,7 +72,12 @@ On the dashboard, you may also:
 
 ## Sidekiq
 
-`Sidekiq` is being used to run a background job `ProcessTableServiceJob`, and leverages `Redis` to manage the job queue. As per the project requirements, processes the queue status of parties, i.e. moving them from `in_queue` to `pending_check_in` to `seated`, and also handles the table service time for `seated` parties to `finished`.
+`Sidekiq` is being used to run a background job `ProcessTableServiceJob`, and leverages `Redis` to manage the job queue. As per the project requirements, the job processes the queue status of parties, i.e. moving them from `in_queue` to `pending_check_in` to `seated`, and also handles the table service time for `seated` parties to `finished`.
+
+## Cookies
+
+Cookies are used to manage each party's session for authenticating the current party and persisting their session data in their browser even if they open up the app on a different tab or refresh the page. A party's cookies are set to expire 1 day after entering the queue, on the basis that it is unlikely the same party will visit the restaurant multiple times in a day.
+
 
 ## Cookies
 
