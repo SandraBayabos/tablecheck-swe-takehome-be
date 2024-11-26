@@ -78,12 +78,6 @@ On the dashboard, you may also:
 
 Cookies are used to manage each party's session for authenticating the current party and persisting their session data in their browser even if they open up the app on a different tab or refresh the page. A party's cookies are set to expire 1 day after entering the queue, on the basis that it is unlikely the same party will visit the restaurant multiple times in a day.
 
-
-## Cookies
-
-Cookies are used to manage each party's session for authenticating the current party and persisting their session data in their browser even if they open up the app on a different tab or refresh the page. A party's cookies are set to expire 1 day after entering the queue, on the basis that it is unlikely the same party will visit the restaurant multiple times in a day.
-
-
 ## Admin Dashboard
 
 ### Client-Facing Dashboard
