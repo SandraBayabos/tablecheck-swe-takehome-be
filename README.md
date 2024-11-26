@@ -4,8 +4,6 @@ This is the backend application for the Tablecheck SWE take-home assignment, bui
 
 ## Installation & Set Up
 
-### Step 1
-
 NOTE:
 Make sure you have Docker installed
 
@@ -68,6 +66,7 @@ party_id 3: size 2
 If the Allow Jump Queue is toggled to `false`, if party_id 1 is seated, in spite of there being capacity for party_id 3, party_id 3 will be blocked checking in until party_id 2 has finished their meal.
 
 Toggling Allow Jump Queue to `true` will allow for party_id 3 to be prioritised over party_id 2 because there is sufficient seating available in the restaurant
+
 ------------------------------------------
 
 ### Other Configurable Settings
