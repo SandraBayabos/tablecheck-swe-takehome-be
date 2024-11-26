@@ -1,5 +1,5 @@
 ActiveAdmin.register Party do
-  menu priority: 1
+  menu priority: 2
   permit_params :name, :size, :status
 
   controller do
