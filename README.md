@@ -39,7 +39,7 @@ Running the following command will:
 3. Start up Redis on `PORT 6379`
 
 ```bash
-docker-compose up-d
+docker-compose up -d
 ```
 
 ## Start up the Rails Server
