@@ -42,6 +42,8 @@ Cookies are used to manage each party's session for authenticating the current p
 An admin dashboard using Rail's Active Admin was included as part of the backend code in order to provide a "client-facing" dashboard.
 This ensures the client is able to visually keep track of queueing customers.
 
+<img src="image.png" alt="home" width="400"/>
+
 ### Seeding Parties
 
 For developers testing the application, a "Seed Random Parties" button is included on the dashboard to initialise a starting-point of a "fully-booked" restaurant. Then when new test parties are added in the entire flow of 1. Creating a Party, 2. Waiting in the Queue, 3. Checking In and 4. Completing the Service can be viewed from the dashboard for easier testing.
@@ -77,3 +79,5 @@ Toggling Allow Jump Queue to `true` will allow for party_id 3 to be prioritised 
 The maximum capacity of the restaurant can also be adjusted on the admin dashboard so the app can be used by restaurants of varying capacities and/or if the restaurant capacity ever changes for any reason.
 
 The service time per party member is also configurable purely for development test purposes.
+
+<img src="image-2.png" alt="home" width="200"/>
