@@ -29,9 +29,9 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
-RUN bundle exec bootsnap precompile app/ lib/
+RUN ASSETS_PRECOMPILE=true SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN bundle exec bootsnap precompile app/ lib/
 
 FROM base
 
